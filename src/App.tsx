@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import StepperComponent from './StepperComponent'
 
 function App() {
   return (
     <div className="App">
-      Hello to the World of Forms
+      < StepperComponent />
     </div>
   );
 }
