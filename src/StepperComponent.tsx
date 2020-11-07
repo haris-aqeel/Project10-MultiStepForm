@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
+      marginTop: "30px"
     },
     backButton: {
       marginRight: theme.spacing(1),
@@ -31,18 +32,6 @@ function getSteps() {
   return ['Personal Information', 'Social Information', 'Account Details'];
 }
 
-function getStepContent(stepIndex: number) {
-  switch (stepIndex) {
-    case 0:
-      return <Formone />;
-    case 1:
-      return <Formtwo />
-    case 2:
-      return <Formthree />;
-    default:
-      return 'Currently! We are working on it...';
-  }
-}
 
 export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
@@ -61,9 +50,24 @@ export default function HorizontalLabelPositionBelowStepper() {
     setActiveStep(0);
   };
 
+
+  
+function getStepContent(stepIndex: number) {
+  switch (stepIndex) {
+    case 0:
+      return <Formone />;
+    case 1:
+      return <Formtwo  />
+    case 2:
+      return <Formthree />;
+    default:
+      return 'Currently! We are working on it...';
+  }
+}
+
   return (
     <div className={classes.root}>
-      <h1>Create Your Account</h1>
+      <h1 style={{marginBottom: "20px"}}>Create Your Account</h1>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -82,13 +86,15 @@ export default function HorizontalLabelPositionBelowStepper() {
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
               <Button
+
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 className={classes.backButton}
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <Button variant="contained" color="primary" type="submit" onClick={handleNext}>
+
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>
