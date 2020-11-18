@@ -39,7 +39,7 @@ function getStepContent(stepIndex: number, handleNext: ()=> void) {
     case 1:
       return <Formtwo handleNext={handleNext}/>
     case 2:
-      return <Formthree/>;
+      return <Formthree handleNext={handleNext}/>;
     default:
       return 'Currently! We are working on it...';
   }
@@ -61,7 +61,7 @@ export default function HorizontalLabelPositionBelowStepper() {
   };
 
   
-      {/* <h1 style={{marginBottom: "20px"}}>Create Your Account</h1> */}
+  
 
   return (
     <div className={classes.root}>

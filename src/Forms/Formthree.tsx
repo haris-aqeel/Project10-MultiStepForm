@@ -4,28 +4,33 @@ import * as yup from "yup"; // for everything
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import DateFnsUtils from '@date-io/date-fns';
-
+ import 'date-fns'
+ import DateFnsUtils from '@date-io/date-fns';
 
 import {   KeyboardDatePicker
-    , MuiPickersUtilsProvider } from "@material-ui/pickers";
-const Formthree = () => {
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date("2014-08-18T21:11:54")
-  );
+     , MuiPickersUtilsProvider } from "@material-ui/pickers";
 
+
+ const Formthree = ({handleNext}: {handleNext: ()=> void}) => {
+
+
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+   null
+  );
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
   };
+ console.log(handleDateChange)
+
 
   const formik = useFormik({
     initialValues: {
       BankAccount: "",
       AccountNumber: 0,
-      CardExpiryDate: "",
     },
     onSubmit: (values) => {
-        console.log(values)
+      console.log("VALUES"+ values)
+      handleNext()
     },
 
     validationSchema: yup.object().shape({
@@ -33,14 +38,12 @@ const Formthree = () => {
       AccountNumber: yup
         .number()
         .min(13, "Your account number contains 13 characters")
-        .max(13, "Your account number must contain 13 characters")
         .required(),
-      CardExpiryDate: yup.date().required(),
     }),
   });
 
   return (
-    <div>
+    <div style= {{width: "100%", height: "100vh", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}}>
       <form
         onSubmit={formik.handleSubmit}
         style={{ width: "70%", margin: "0 auto" }}
@@ -77,29 +80,31 @@ const Formthree = () => {
             />
           </Grid>
           <Grid item xs={12}>
+      
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
               margin="normal"
               id="date-picker-dialog"
               label="Date picker dialog"
-              format="MM/dd/yyyy"
-              value={formik.values.CardExpiryDate}
-              onChange={formik.handleChange}
+              type="text"
+              views={['year', 'month', 'date']}
+              value={selectedDate}
+              format="dd/MM/yyyy"
+              onChange = {setSelectedDate}
               KeyboardButtonProps={{
-                "aria-label": "change date",
+                'aria-label': 'change date',
               }}
-              error={formik.touched.CardExpiryDate && Boolean(formik.errors.CardExpiryDate)}
-              helperText={formik.touched.CardExpiryDate && formik.errors.CardExpiryDate}
             />
             </MuiPickersUtilsProvider>
           </Grid>
-        </Grid>
+        </Grid>  
         <Button color="primary" variant="contained" fullWidth type="submit" style={{marginTop: "20px"}}>
           Submit Details
         </Button>
       </form>
     </div>
   );
-};
+        
+            }
 
 export default Formthree;

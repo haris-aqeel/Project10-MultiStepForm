@@ -7,6 +7,9 @@ import Button from "@material-ui/core/Button";
 
 
 const Formtwo = ({handleNext}: {handleNext: ()=> void}) => {
+
+
+
   const formik = useFormik({
     initialValues: {
       description: "",
@@ -47,7 +50,6 @@ const Formtwo = ({handleNext}: {handleNext: ()=> void}) => {
               multiline
               fullWidth
               rows={4}
-              defaultValue="Default Value"
               variant="outlined"
               name = "description"
               onChange={formik.handleChange}
