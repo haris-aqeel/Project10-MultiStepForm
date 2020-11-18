@@ -32,6 +32,19 @@ function getSteps() {
   return ['Personal Information', 'Social Information', 'Account Details'];
 }
 
+function getStepContent(stepIndex: number, handleNext: ()=> void) {
+  switch (stepIndex) {
+    case 0:
+      return <Formone handleNext={handleNext}/>;
+    case 1:
+      return <Formtwo handleNext={handleNext}/>
+    case 2:
+      return <Formthree/>;
+    default:
+      return 'Currently! We are working on it...';
+  }
+}
+
 
 export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
@@ -39,35 +52,19 @@ export default function HorizontalLabelPositionBelowStepper() {
   const steps = getSteps();
 
   const handleNext = () => {
+      console.log("Clicking Next")
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
-
   
-function getStepContent(stepIndex: number) {
-  switch (stepIndex) {
-    case 0:
-      return <Formone />;
-    case 1:
-      return <Formtwo  />
-    case 2:
-      return <Formthree />;
-    default:
-      return 'Currently! We are working on it...';
-  }
-}
+      {/* <h1 style={{marginBottom: "20px"}}>Create Your Account</h1> */}
 
   return (
     <div className={classes.root}>
-      <h1 style={{marginBottom: "20px"}}>Create Your Account</h1>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -76,6 +73,7 @@ function getStepContent(stepIndex: number) {
         ))}
       </Stepper>
       <div>
+      <h1 style={{marginBottom: "20px"}}>Create Your Account</h1>
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>All steps completed</Typography>
@@ -83,21 +81,19 @@ function getStepContent(stepIndex: number) {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            <div>
+            {getStepContent(activeStep,handleNext)}
+            {/* <div>
               <Button
-
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 className={classes.backButton}
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" type="submit" onClick={handleNext}>
-
+              <Button variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
-            </div>
+            </div> */}
           </div>
         )}
       </div>
